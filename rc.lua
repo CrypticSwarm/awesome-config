@@ -54,7 +54,13 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-tagInfo = { {name = "dev", app = terminal }, { name = "web", app = "firefox"}, { name = "chats", app = "xchat-gnome"}, { name = "music", app = "rhythmbox" }, { name = "file", app = (terminal .. " -e" .. " nautilus --browser ") } }
+tagInfo = { { name = "dev", app = terminal }
+          , { name = "web", app = "firefox"}
+          , { name = "chats", app = "xchat-gnome"}
+          , { name = "music", app = "rhythmbox" }
+          , { name = "file", app = ("bash -c 'nautilus --browser' ") }
+          , { name = "call", app = ("bash -c 'google-chrome --proxy-server=socks5://localhost:9674'") }
+          }
 tagNames = {}
 for i = 1, 9 do
 	tagNames[i] = tagInfo[i] and tagInfo[i].name or i
