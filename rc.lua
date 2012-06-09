@@ -59,7 +59,8 @@ tagInfo = { { name = "dev", app = terminal }
           , { name = "chats", app = "xchat-gnome"}
           , { name = "music", app = "rhythmbox" }
           , { name = "file", app = ("bash -c 'nautilus --browser' ") }
-          , { name = "call", app = ("bash -c 'google-chrome --proxy-server=socks5://localhost:9674'") }
+          , { name = "call", app = ("bash -c 'google-chrome'") }
+          , { name = "skype", app = ("bash -c 'skypey'") }
           }
 tagNames = {}
 for i = 1, 9 do
