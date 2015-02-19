@@ -55,12 +55,9 @@ layouts =
 -- Define a tag table which hold all screen tags.
 tags = {}
 tagInfo = { { name = "dev", app = terminal }
-          , { name = "web", app = "firefox"}
-          , { name = "chats", app = "xchat-gnome"}
-          , { name = "music", app = "rhythmbox" }
+          , { name = "firefox", app = "firefox"}
+          , { name = "chrome", app = ("bash -c 'chromium-browser'") }
           , { name = "file", app = ("bash -c 'nautilus --browser' ") }
-          , { name = "call", app = ("bash -c 'google-chrome'") }
-          , { name = "skype", app = ("bash -c 'skypey'") }
           }
 tagNames = {}
 for i = 1, 9 do
