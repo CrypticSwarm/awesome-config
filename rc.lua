@@ -57,7 +57,7 @@ tags = {}
 tagInfo = { { name = "dev", app = terminal }
           , { name = "firefox", app = "firefox"}
           , { name = "chrome", app = ("bash -c 'chromium-browser'") }
-          , { name = "file", app = ("bash -c 'nautilus --browser' ") }
+          , { name = "file", app = ("bash -c 'nautilus --browser --no-desktop' ") }
           }
 tagNames = {}
 for i = 1, 9 do
