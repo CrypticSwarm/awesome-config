@@ -199,12 +199,9 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
-perRow = 3
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Down", function() awful.tag.viewidx(perRow) end       ),
-    awful.key({ modkey,           }, "Up",   function() awful.tag.viewidx(-1*perRow) end       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "z", awful.tag.history.restore),
 
