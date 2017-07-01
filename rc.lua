@@ -109,7 +109,7 @@ local mypromptbox = {}
 local mylayoutbox = {}
 local mytaglist = {}
 local inc_layout = function (amt) 
-    function () awful.layout.inc(layouts, amt) end
+    return function () awful.layout.inc(layouts, amt) end
 end
 mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 1, awful.tag.viewonly),
