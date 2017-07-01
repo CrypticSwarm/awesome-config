@@ -74,16 +74,11 @@ local mylauncher = awful.widget.launcher({
 -- }}}
 
 -- {{{ Wibox
--- Create a textclock widget
 local textclock = awful.widget.textclock("%F %T")
-
 local spacer = wibox.widget.textbox(" ")
+local mysystray = wibox.widget.systray()
 local netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
-
-
--- Create a systray
-local mysystray = wibox.widget.systray()
 
 -- Create a wibox for each screen and add it
 local mywibox = {}
