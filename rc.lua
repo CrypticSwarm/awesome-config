@@ -10,15 +10,13 @@ end
 -- Standard awesome library
 local awful = require("awful")
 local wibox = require("wibox")
+local vicious = require("vicious")
+local beautiful = require("beautiful")
+local naughty = require("naughty")
+
 awful.widget = require("awful.widget")
 awful.autofocus = require("awful.autofocus")
 awful.rules = require("awful.rules")
--- Theme handling library
-local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
-
-local vicious = require("vicious")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -31,10 +29,6 @@ local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 local modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
