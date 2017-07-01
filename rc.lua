@@ -1,12 +1,3 @@
-function getTagIndexFromName(tagName)
-	for index,tag in pairs(tags[1]) do
-		if tag.name == tagName then
-			return index
-		end
-	end
-	return nil
-end
-
 -- Standard awesome library
 local awful = require("awful")
 local wibox = require("wibox")
@@ -46,16 +37,13 @@ local layouts = {
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 local tags = {}
-local tagInfo = { 
-    { name = "dev", app = terminal },
-    { name = "chrome", app = ("bash -c 'google-chrome'") },
-    { name = "firefox", app = "firefox"},
-    { name = "file", app = ("bash -c 'nautilus --browser --no-desktop' ") }
+local app_info = { 
+    dev = { app = terminal },
+    chrome = { app = "bash -c 'google-chrome'" },
+    firefox = { app = "firefox"},
+    file = { app = "bash -c 'nautilus --browser --no-desktop' " }
 }
-local tagNames = {}
-for i = 1, 9 do
-	tagNames[i] = tagInfo[i] and tagInfo[i].name or i
-end
+local tagNames = { "dev", "chrome", "firefox", "file", 5, 6, 7, 8, 9 }
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag(tagNames, s, layouts[1])
@@ -232,9 +220,9 @@ local globalkeys = awful.util.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey,           }, "p", function () 
-        local index = getTagIndexFromName(awful.tag.selected().name)
-        if index and tagInfo[index] and tagInfo[index].app then
-            awful.util.spawn(tagInfo[index].app)
+        local name = awful.tag.selected().name
+        if app_info[name] and app_info[name].app then
+            awful.util.spawn(app_info[name].app)
         end
     end),
     awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end),
