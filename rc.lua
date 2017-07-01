@@ -51,21 +51,17 @@ end
 -- }}}
 
 -- {{{ Menu
--- Create a laucher widget and a main menu
-local myawesomemenu = {
-    { "manual", terminal .. " -e man awesome" },
-    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-    { "restart", awesome.restart },
-    { "quit", awesome.quit }
-}
-
-local mymainmenu = awful.menu({
+local mainmenu = awful.menu({
     items = {
-        { "awesome", myawesomemenu, beautiful.awesome_icon },
+        { "awesome", {
+            { "manual", terminal .. " -e man awesome" },
+            { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
+            { "restart", awesome.restart },
+            { "quit", awesome.quit }
+        }, beautiful.awesome_icon },
         { "open terminal", terminal }
     }
 })
-
 
 -- }}}
 
@@ -113,7 +109,7 @@ local tasklist_buttons = awful.util.table.join(
 local screen_widgets = {}
 function create_screen_widgets(s)
     local w = {
-        launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu }),
+        launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu }),
         promptbox = awful.widget.prompt(),
         layoutbox = awful.widget.layoutbox(s),
         taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons),
@@ -161,7 +157,7 @@ end
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () mainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -186,7 +182,7 @@ local globalkeys = awful.util.table.join(
         awful.client.focus.byidx(-1)
         if client.focus then client.focus:raise() end
     end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show(true)        end),
+    awful.key({ modkey,           }, "w", function () mainmenu:show(true)        end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j",  function () awful.client.swap.byidx(  1)    end),
