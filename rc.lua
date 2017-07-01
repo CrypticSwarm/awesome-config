@@ -19,8 +19,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 
 local vicious = require("vicious")
--- obvious = require("obvious")
--- obvious.clock = require("obvious.clock")
 
 -- Load Debian menu entries
 -- require("debian.menu")
@@ -94,11 +92,10 @@ local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- {{{ Wibox
 -- Create a textclock widget
--- obvious.clock.set_editor(editor_cmd)
--- obvious.clock.set_shortformat("%F %T")
--- mytextclock = obvious.clock()
+local textclock = awful.widget.textclock("%F %T")
 
-netwidget = wibox.widget.textbox()
+local spacer = wibox.widget.textbox(" ")
+local netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
 
 
@@ -175,6 +172,8 @@ for s = 1, screen.count() do
       -- right_layout:add(mytextclock)
       right_layout:add(mysystray)
       right_layout:add(netwidget)
+      right_layout:add(spacer)
+      right_layout:add(textclock)
     end
 
     local layout = wibox.layout.align.horizontal()
