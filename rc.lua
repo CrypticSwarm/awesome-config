@@ -84,11 +84,11 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 d
 local mywibox = {}
 local mypromptbox = {}
 local mylayoutbox = {}
-local mytaglist = {}
+local taglist = {}
 local inc_layout = function (amt) 
     return function () awful.layout.inc(layouts, amt) end
 end
-mytaglist.buttons = awful.util.table.join(
+local taglist_buttons = awful.util.table.join(
     awful.button({ }, 1, awful.tag.viewonly),
     awful.button({ modkey }, 1, awful.client.movetotag),
     awful.button({ }, 3, awful.tag.viewtoggle),
@@ -96,8 +96,8 @@ mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 )
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
+local tasklist = {}
+local tasklist_buttons = awful.util.table.join(
     awful.button({ }, 1, function (c)
         if not c:isvisible() then
             awful.tag.viewonly(c:tags()[1])
@@ -134,23 +134,19 @@ for s = 1, screen.count() do
         awful.button({ }, 3, inc_layout(-1)),
         awful.button({ }, 4, inc_layout(1)),
         awful.button({ }, 5, inc_layout(-1))))
-    -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
-    -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+    taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    tasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s, height = 15 })
-    -- Add widgets to the wibox - order matters
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
-    left_layout:add(mytaglist[s])
+    left_layout:add(taglist[s])
     left_layout:add(mypromptbox[s])
 
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then 
-      -- right_layout:add(mytextclock)
       right_layout:add(mysystray)
       right_layout:add(netwidget)
       right_layout:add(spacer)
@@ -160,7 +156,7 @@ for s = 1, screen.count() do
 
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
-    layout:set_middle(mytasklist[s])
+    layout:set_middle(tasklist[s])
     layout:set_right(right_layout)
 
     mywibox[s]:set_widget(layout)
