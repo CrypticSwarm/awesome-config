@@ -167,7 +167,6 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
 
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(mylayoutbox[s])
     if s == 1 then 
       -- right_layout:add(mytextclock)
       right_layout:add(mysystray)
@@ -175,6 +174,7 @@ for s = 1, screen.count() do
       right_layout:add(spacer)
       right_layout:add(textclock)
     end
+    right_layout:add(mylayoutbox[s])
 
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
