@@ -8,15 +8,17 @@ function getTagIndexFromName(tagName)
 end
 
 -- Standard awesome library
-require("awful")
-require("awful.autofocus")
-require("awful.rules")
+local awful = require("awful")
+local wibox = require("wibox")
+awful.widget = require("awful.widget")
+awful.autofocus = require("awful.autofocus")
+awful.rules = require("awful.rules")
 -- Theme handling library
-require("beautiful")
+local beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+local naughty = require("naughty")
 
-require("vicious")
+local vicious = require("vicious")
 require("obvious.clock")
 
 -- Load Debian menu entries
@@ -27,19 +29,19 @@ require("debian.menu")
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+local terminal = "x-terminal-emulator"
+local editor = os.getenv("EDITOR") or "editor"
+local editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-layouts =
+local layouts =
 {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -53,13 +55,13 @@ layouts =
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
-tagInfo = { { name = "dev", app = terminal }
+local tags = {}
+local tagInfo = { { name = "dev", app = terminal }
           , { name = "chrome", app = ("bash -c 'google-chrome'") }
           , { name = "firefox", app = "firefox"}
           , { name = "file", app = ("bash -c 'nautilus --browser --no-desktop' ") }
           }
-tagNames = {}
+local tagNames = {}
 for i = 1, 9 do
 	tagNames[i] = tagInfo[i] and tagInfo[i].name or i
 end
@@ -71,14 +73,14 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myawesomemenu = {
+local myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+local mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
@@ -99,13 +101,13 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 d
 
 
 -- Create a systray
-mysystray = widget({ type = "systray" })
+local mysystray = widget({ type = "systray" })
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
+local mywibox = {}
+local mypromptbox = {}
+local mylayoutbox = {}
+local mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 1, awful.tag.viewonly),
                     awful.button({ modkey }, 1, awful.client.movetotag),
