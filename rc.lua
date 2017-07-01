@@ -19,14 +19,16 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 
 local vicious = require("vicious")
-require("obvious.clock")
+-- obvious = require("obvious")
+-- obvious.clock = require("obvious.clock")
 
 -- Load Debian menu entries
-require("debian.menu")
+-- require("debian.menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+-- theme.wallpaper_cmd = { "awsetbg /home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg" }
 
 -- This is used later as the default terminal and editor to run.
 local terminal = "x-terminal-emulator"
@@ -81,27 +83,27 @@ local myawesomemenu = {
 }
 
 local mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    -- { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
 -- Create a textclock widget
-obvious.clock.set_editor(editor_cmd)
-obvious.clock.set_shortformat("%F %T")
-mytextclock = obvious.clock()
+-- obvious.clock.set_editor(editor_cmd)
+-- obvious.clock.set_shortformat("%F %T")
+-- mytextclock = obvious.clock()
 
-netwidget = widget({ type = "textbox" })
+netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
 
 
 -- Create a systray
-local mysystray = widget({ type = "systray" })
+local mysystray = wibox.widget.systray()
 
 -- Create a wibox for each screen and add it
 local mywibox = {}
@@ -144,7 +146,7 @@ mytasklist.buttons = awful.util.table.join(
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+    mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -154,30 +156,33 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        s == 1 and mytextclock or nil,
-        s == 1 and mysystray or nil,
-				(screen.count() > 1 and s == 2 and netwidget) or (screen.count() == 1 and netwidget) or nil, 
-        mytasklist[s],
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mylauncher)
+    left_layout:add(mytaglist[s])
+    left_layout:add(mypromptbox[s])
+
+    local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(mylayoutbox[s])
+    if s == 1 then 
+      -- right_layout:add(mytextclock)
+      right_layout:add(mysystray)
+      right_layout:add(netwidget)
+    end
+
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_middle(mytasklist[s])
+    layout:set_right(right_layout)
+
+    mywibox[s]:set_widget(layout)
 end
 -- }}}
 
