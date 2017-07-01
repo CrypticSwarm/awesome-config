@@ -141,7 +141,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 15 })
     -- Add widgets to the wibox - order matters
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mylauncher)
