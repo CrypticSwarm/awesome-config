@@ -20,9 +20,6 @@ local naughty = require("naughty")
 
 local vicious = require("vicious")
 
--- Load Debian menu entries
--- require("debian.menu")
-
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
@@ -81,7 +78,6 @@ local myawesomemenu = {
 }
 
 local mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    -- { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal }
                                   }
                         })
