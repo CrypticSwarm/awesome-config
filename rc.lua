@@ -4,6 +4,7 @@ local wibox = require("wibox")
 local vicious = require("vicious")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
+local gears = require("gears")
 
 awful.widget = require("awful.widget")
 awful.autofocus = require("awful.autofocus")
@@ -12,7 +13,6 @@ awful.rules = require("awful.rules")
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
--- theme.wallpaper_cmd = { "awsetbg /home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg" }
 
 -- This is used later as the default terminal and editor to run.
 local terminal = "x-terminal-emulator"
@@ -150,6 +150,7 @@ end
 
 for s = 1, screen.count() do
     screen_widgets[s] = create_screen_widgets(s)
+    gears.wallpaper.maximized("/home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg", s, true)
 end
 -- }}}
 
