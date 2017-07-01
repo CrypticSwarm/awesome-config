@@ -67,8 +67,6 @@ local mainmenu = awful.menu({
 
 -- {{{ Wibox
 
--- Create a wibox for each screen and add it
-
 local inc_layout = function (amt) 
     return function () awful.layout.inc(layouts, amt) end
 end
@@ -258,15 +256,13 @@ end
 for i = 1, keynumber do
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 9, function ()
-            local screen = mouse.screen
-            if tags[screen][i] then
-                awful.tag.viewonly(tags[screen][i])
+            if tags[mouse.screen][i] then
+                awful.tag.viewonly(tags[mouse.screen][i])
             end
         end),
         awful.key({ modkey, "Control" }, "#" .. i + 9, function ()
-            local screen = mouse.screen
-            if tags[screen][i] then
-                awful.tag.viewtoggle(tags[screen][i])
+            if tags[mouse.screen][i] then
+                awful.tag.viewtoggle(tags[mouse.screen][i])
             end
         end),
         awful.key({ modkey, "Shift" }, "#" .. i + 9, function ()
