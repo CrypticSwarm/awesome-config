@@ -11,7 +11,6 @@ awful.autofocus = require("awful.autofocus")
 awful.rules = require("awful.rules")
 
 -- {{{ Variable definitions
--- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
@@ -45,7 +44,6 @@ local app_info = {
 }
 local tagNames = { "dev", "chrome", "firefox", "file", 5, 6, 7, 8, 9 }
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
     tags[s] = awful.tag(tagNames, s, layouts[1])
 end
 -- }}}
