@@ -122,7 +122,7 @@ function create_screen_widgets(s)
     w.left_layout:add(w.launcher)
     w.left_layout:add(w.taglist)
     w.left_layout:add(w.promptbox)
-    if 1 == 1 then
+    if s == 1 then
         w.textclock = awful.widget.textclock("%F %T")
         w.spacer = wibox.widget.textbox(" ")
         w.systray = wibox.widget.systray()
