@@ -70,11 +70,7 @@ local inc_layout = function (amt)
 end
 local taglist_buttons = awful.util.table.join(
     awful.button({ }, 1, awful.tag.viewonly),
-    awful.button({ modkey }, 1, awful.client.movetotag),
-    awful.button({ }, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, awful.client.toggletag),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, awful.tag.viewtoggle)
 )
 local tasklist_buttons = awful.util.table.join(
     awful.button({ }, 1, function (c)
@@ -91,14 +87,6 @@ local tasklist_buttons = awful.util.table.join(
         else
             instance = awful.menu.clients({ width=250 })
         end
-    end),
-    awful.button({ }, 4, function ()
-        awful.client.focus.byidx(1)
-        if client.focus then client.focus:raise() end
-    end),
-    awful.button({ }, 5, function ()
-        awful.client.focus.byidx(-1)
-        if client.focus then client.focus:raise() end
     end)
 )
 
@@ -136,9 +124,7 @@ function create_screen_widgets(s)
     w.right_layout:add(w.layoutbox)
     w.layoutbox:buttons(awful.util.table.join(
         awful.button({ }, 1, inc_layout(1)),
-        awful.button({ }, 3, inc_layout(-1)),
-        awful.button({ }, 4, inc_layout(1)),
-        awful.button({ }, 5, inc_layout(-1))))
+        awful.button({ }, 3, inc_layout(-1))))
     w.layout:set_left(w.left_layout)
     w.layout:set_middle(w.tasklist)
     w.layout:set_right(w.right_layout)
@@ -154,9 +140,7 @@ end
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    awful.button({ }, 3, function () mainmenu:toggle() end)
 ))
 -- }}}
 
