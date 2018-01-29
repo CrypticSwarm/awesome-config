@@ -98,7 +98,7 @@ function create_screen_widgets(s)
         layoutbox = awful.widget.layoutbox(s),
         taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons),
         tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons),
-        wibox = awful.wibox({ position = "top", screen = s, height = 15 }),
+        wibox = awful.wibox({ position = "top", screen = s, height = 39 }),
         textclock = nil,
         spacer = nil,
         systray = nil,
