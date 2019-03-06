@@ -90,8 +90,20 @@ local tasklist_buttons = awful.util.table.join(
     end)
 )
 
+local function set_wallpaper(s)
+  -- if beautiful.wallpaper then
+    -- local wallpaper = beautiful.wallpaper
+    -- if type(wallpaper) == "function" then
+    --   wallpaper = wallpaper(s)
+    -- end
+  -- end
+  gears.wallpaper.maximized("/home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg", s, true)
+end
+screen.connect_signal("property::geometry", set_wallpaper)
+
 local screen_widgets = {}
 function create_screen_widgets(s)
+    set_wallpaper(s)
     local w = {
         launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu }),
         promptbox = awful.widget.prompt(),
@@ -134,7 +146,6 @@ end
 
 for s = 1, screen.count() do
     screen_widgets[s] = create_screen_widgets(s)
-    gears.wallpaper.maximized("/home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg", s, true)
 end
 -- }}}
 
