@@ -102,49 +102,35 @@ function create_screen_widgets(s)
     set_wallpaper(s)
     local tagNames = { "dev", "chrome", "firefox", "file", 5, 6, 7, 8, 9 }
     awful.tag(tagNames, s, layouts[1])
-    local w = {
-        launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu }),
-        promptbox = awful.widget.prompt(),
-        layoutbox = awful.widget.layoutbox(s),
-        taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons),
-        tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons),
-        wibox = awful.wibox({ position = "top", screen = s, height = 39 }),
-        textclock = nil,
-        spacer = nil,
-        systray = nil,
-        netwidget = nil,
-        left_layout = wibox.layout.fixed.horizontal(),
-        right_layout = wibox.layout.fixed.horizontal(),
-        layout = wibox.layout.align.horizontal()
-    }
-    w.left_layout:add(w.launcher)
-    w.left_layout:add(w.taglist)
-    w.left_layout:add(w.promptbox)
-    if s == 1 then
-        w.textclock = wibox.widget.textclock("%F %T")
-        w.spacer = wibox.widget.textbox(" ")
-        w.systray = wibox.widget.systray()
-        w.netwidget = wibox.widget.textbox()
-        vicious.register(w.netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
-        w.right_layout:add(w.systray)
-        w.right_layout:add(w.netwidget)
-        w.right_layout:add(w.spacer)
-        w.right_layout:add(w.textclock)
-    end
-    w.right_layout:add(w.layoutbox)
-    w.layoutbox:buttons(awful.util.table.join(
+    s.promptbox = awful.widget.prompt()
+    s.layoutbox = awful.widget.layoutbox(s)
+    s.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu })
+    s.taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.wibox = awful.wibox({ position = "top", screen = s, height = 39 })
+    local layout = wibox.layout.align.horizontal()
+    local left_layout = wibox.layout.fixed.horizontal()
+    local right_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(s.launcher)
+    left_layout:add(s.taglist)
+    left_layout:add(s.promptbox)
+    local netwidget = wibox.widget.textbox()
+    vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${enp109s0f1 down_kb}</span> <span color="#7F9F7F">${enp109s0f1 up_kb}</span>', 3)
+    right_layout:add(wibox.widget.systray())
+    right_layout:add(netwidget)
+    right_layout:add(wibox.widget.textbox(" "))
+    right_layout:add(wibox.widget.textclock("%F %T"))
+    right_layout:add(s.layoutbox)
+    s.layoutbox:buttons(awful.util.table.join(
         awful.button({ }, 1, inc_layout(1)),
         awful.button({ }, 3, inc_layout(-1))))
-    w.layout:set_left(w.left_layout)
-    w.layout:set_middle(w.tasklist)
-    w.layout:set_right(w.right_layout)
-    w.wibox:set_widget(w.layout)
-    return w
+    layout:set_left(left_layout)
+    layout:set_middle(s.tasklist)
+    layout:set_right(right_layout)
+    s.wibox:set_widget(layout)
 end
 
-for s = 1, screen.count() do
-    screen_widgets[s] = create_screen_widgets(s)
-end
+awful.screen.connect_for_each_screen(create_screen_widgets)
 -- }}}
 
 -- {{{ Mouse bindings
