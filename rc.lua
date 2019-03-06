@@ -145,7 +145,8 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "z", awful.tag.history.restore),
 
     awful.key({ modkey }, "b", function ()
-        screen_widgets[mouse.screen].wibox.visible = not screen_widgets[mouse.screen].wibox.visible
+      local focused = awful.screen.focused()
+      focused.wibox.visible = not focused.wibox.visible
     end),
 
     awful.key({ modkey,           }, "j", function ()
@@ -196,13 +197,15 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", inc_layout(-1)),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () screen_widgets[mouse.screen].promptbox:run() end),
+    awful.key({ modkey },            "r",     function () awful.screen.focused().promptbox:run() end),
 
     awful.key({ modkey }, "x", function ()
-        awful.prompt.run({ prompt = "Run Lua code: " },
-        screen_widgets[mouse.screen].promptbox.widget,
-        awful.util.eval, nil,
-        awful.util.getdir("cache") .. "/history_eval")
+        awful.prompt.run {
+          prompt       "Run Lua code: ",
+          textbox      = awful.screen.focused().promptbox.widget,
+          exe_callback = awful.util.eval,
+          history_path = awful.util.getdir("cache") .. "/history_eval"
+        }
     end)
 )
 
@@ -211,7 +214,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m", function (c)
