@@ -34,8 +34,6 @@ local layouts = {
 -- }}}
 
 -- {{{ Tags
--- Define a tag table which hold all screen tags.
-local tags = {}
 local app_info = { 
     dev = { app = terminal },
     chrome = { app = "bash -c 'google-chrome'" },
