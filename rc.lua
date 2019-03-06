@@ -55,7 +55,7 @@ local mainmenu = awful.menu({
             { "manual", terminal .. " -e man awesome" },
             { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
             { "restart", awesome.restart },
-            { "quit", awesome.quit }
+            { "quit", function () awesome.quit() end}
         }, beautiful.awesome_icon },
         { "open terminal", terminal }
     }
@@ -111,7 +111,7 @@ function create_screen_widgets(s)
     w.left_layout:add(w.taglist)
     w.left_layout:add(w.promptbox)
     if s == 1 then
-        w.textclock = awful.widget.textclock("%F %T")
+        w.textclock = wibox.widget.textclock("%F %T")
         w.spacer = wibox.widget.textbox(" ")
         w.systray = wibox.widget.systray()
         w.netwidget = wibox.widget.textbox()
