@@ -69,7 +69,7 @@ local inc_layout = function (amt)
     return function () awful.layout.inc(layouts, amt) end
 end
 local taglist_buttons = awful.util.table.join(
-    awful.button({ }, 1, awful.tag.viewonly),
+    awful.button({ }, 1, function (tag) tag:view_only() end),
     awful.button({ }, 3, awful.tag.viewtoggle)
 )
 local tasklist_buttons = awful.util.table.join(
