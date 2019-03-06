@@ -177,14 +177,14 @@ local globalkeys = awful.util.table.join(
     end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end),
     awful.key({ modkey,           }, "p", function () 
         local name = awful.tag.selected().name
         if app_info[name] and app_info[name].app then
-            awful.util.spawn(app_info[name].app)
+            awful.spawn(app_info[name].app)
         end
     end),
-    awful.key({ modkey, "Control" }, "l", function () awful.util.spawn("gnome-screensaver-command -l") end),
+    awful.key({ modkey, "Control" }, "l", function () awful.spawn("gnome-screensaver-command -l") end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
