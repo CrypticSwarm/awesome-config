@@ -42,10 +42,6 @@ local app_info = {
     firefox = { app = "firefox"},
     file = { app = "bash -c 'nautilus --browser --no-desktop' " }
 }
-local tagNames = { "dev", "chrome", "firefox", "file", 5, 6, 7, 8, 9 }
-for s = 1, screen.count() do
-    tags[s] = awful.tag(tagNames, s, layouts[1])
-end
 -- }}}
 
 -- {{{ Menu
@@ -104,6 +100,8 @@ screen.connect_signal("property::geometry", set_wallpaper)
 local screen_widgets = {}
 function create_screen_widgets(s)
     set_wallpaper(s)
+    local tagNames = { "dev", "chrome", "firefox", "file", 5, 6, 7, 8, 9 }
+    awful.tag(tagNames, s, layouts[1])
     local w = {
         launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu }),
         promptbox = awful.widget.prompt(),
@@ -238,16 +236,10 @@ clientkeys = awful.util.table.join(
     end)
 )
 
--- Compute the maximum number of digit we need, limited to 9
-local keynumber = 0
-for s = 1, screen.count() do
-   keynumber = math.min(9, math.max(#tags[s], keynumber))
-end
-
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, keynumber do
+for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 9, function ()
           local screen = awful.screen.focused()
