@@ -183,7 +183,7 @@ local globalkeys = awful.util.table.join(
       awful.spawn(app_info[name].app)
     end
   end),
-  awful.key({ modkey, "Control" }, "l", function () awful.spawn("gnome-screensaver-command -l") end),
+  awful.key({ modkey, "Control" }, "l", function () awful.spawn("dm-tool lock") end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
   awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
