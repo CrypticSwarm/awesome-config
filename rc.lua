@@ -192,7 +192,7 @@ local globalkeys = awful.util.table.join(
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
   awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-  awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
+  awful.key({ modkey, "Control" }, ";",     function () awful.tag.incncol(-1)         end),
   awful.key({ modkey,           }, "space", inc_layout(1)),
   awful.key({ modkey, "Shift"   }, "space", inc_layout(-1)),
 
