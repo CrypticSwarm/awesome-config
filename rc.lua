@@ -206,7 +206,9 @@ local globalkeys = awful.util.table.join(
       exe_callback = awful.util.eval,
       history_path = awful.util.getdir("cache") .. "/history_eval"
     }
-  end)
+  end),
+
+  awful.key({}, "Print", function () awful.spawn('gnome-screenshot -ai') end)
 )
 
 clientkeys = awful.util.table.join(
