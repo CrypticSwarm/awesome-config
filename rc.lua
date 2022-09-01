@@ -91,7 +91,7 @@ local function set_wallpaper(s)
     --   wallpaper = wallpaper(s)
     -- end
   -- end
-  gears.wallpaper.maximized("/home/crypticswarm/Documents/lockerdome/images/backgrounds/Thunderbolt-27/Wallpaper6.jpg", s, true)
+  gears.wallpaper.maximized("/home/crypticswarm/Documents/lockerdome/images/decide-backgrounds/decide_wallpaper-06.jpg", s, true)
 end
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -102,7 +102,7 @@ function create_screen_widgets(s)
   awful.tag(tagNames, s, layouts[1])
   s.promptbox = awful.widget.prompt()
   s.layoutbox = awful.widget.layoutbox(s)
-  s.launcher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mainmenu })
+  s.launcher = awful.widget.launcher({ image = '/home/crypticswarm/Documents/lockerdome/images/decide-logos/Avatar-Logo-Icon-Decide-v1-128px.png', menu = mainmenu })
   s.taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
   s.tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
   s.wibox = awful.wibox({ position = "top", screen = s, height = 39 })
