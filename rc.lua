@@ -14,7 +14,7 @@ awful.rules = require("awful.rules")
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-local terminal = "x-terminal-emulator"
+local terminal = "ghostty"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
 
