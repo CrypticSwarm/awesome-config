@@ -219,9 +219,16 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end),
   awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
   awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+  awful.key({ modkey,           }, "g",      function (c) c.sticky = not c.sticky end),
   awful.key({ modkey,           }, "m", function (c)
-    c.maximized_horizontal = not c.maximized_horizontal
-    c.maximized_vertical   = not c.maximized_vertical
+    if c.maximized or c.maximized_horizontal or c.maximized_vertical then
+      c.maximized_horizontal = false
+      c.maximized_vertical   = false
+      c.maximized            = false
+    else
+      c.maximized_horizontal = not c.maximized_horizontal
+      c.maximized_vertical   = not c.maximized_vertical
+    end
   end)
 )
 
